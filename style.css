@@ -5,7 +5,7 @@ canvas {
 body {
   position: relative;
   margin: 0;
-  background-color: #191919;
+  background-color: #19191900;
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -25,6 +25,8 @@ body {
   overflow: hidden;
   background-image: url('./img/ui.png');
   background-size: 375px;
+  border-radius: 30px;
+  border:8px solid black
 }
 
 .my-canvas {

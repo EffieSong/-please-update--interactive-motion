@@ -11,6 +11,35 @@ let explosiveEmojis = [];
 let emoji;
 let cnv;
 let bubble;
+let finger = document.getElementById("instructionIcon");
+let instructionIsOver = false;
+var properties = {
+    x: 0,
+    y: 0,
+    opacity: 1,
+}
+
+let tween_fingerUpDown = new TWEEN.Tween(properties)
+    .to({
+        y: 10,
+    }, 700).repeat(Infinity).yoyo(true)
+    .easing(TWEEN.Easing.Cubic.InOut).onUpdate(() => {
+        finger.style.transform = `translateY(${properties.y}px)`;
+    }).start();
+
+let tween_fingerHide = new TWEEN.Tween(properties)
+    .to({
+        opacity: 0,
+    }, 200)
+    .easing(TWEEN.Easing.Linear.None).onUpdate(() => {
+        finger.style.opacity = `${properties.opacity}`;
+    }).onComplete(()=>{instructionIsOver=true});
+
+
+
+
+
+
 
 function preload() {
     bubble = loadImage('img/bubble.png');
@@ -38,6 +67,7 @@ function draw() {
     });
     fill('white');
     rect(0, cnv.height, cnv.width, cnv.height);
+    TWEEN.update();
 }
 let CLICKCOUNT = 0;
 
@@ -240,6 +270,9 @@ let button = document.querySelector('.qiugengxin-btn');
 let icon =document.querySelector('#qiugengxinIcon'); 
 let btnBorder =document.querySelector('.qiugengxin-btn-border'); 
 button.onmousedown = function(){
+    
+    if(!instructionIsOver)tween_fingerHide.start();
+
     anime({
         targets: '.profile',
         translateX: { value: -6},
